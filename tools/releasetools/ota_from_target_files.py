@@ -483,6 +483,11 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
     script.Print("BackupTools: DONE! Now real installation will begin")
     script.Unmount("/system")
 
+  if OPTIONS.backuptool:
+    script.Mount("/system")
+    script.RunBackup("backup")
+    script.Unmount("/system")
+
   system_progress = 0.75
 
   if OPTIONS.wipe_user_data:
@@ -1347,7 +1352,7 @@ def main(argv):
     elif o == "--payload_signer_args":
       OPTIONS.payload_signer_args = shlex.split(a)
     elif o == "--extracted_input_target_files":
-      OPTIONS.extracted_input = a
+      OPTIONS.extracted_input = a6
     elif o in ("--override_device"):
       OPTIONS.override_device = a
     elif o in ("--backup"):
