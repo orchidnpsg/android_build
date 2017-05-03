@@ -137,7 +137,7 @@ function check_product()
         export BUILD_NUMBER=$( (date +%s%N ; echo $AIM_BUILD; hostname) | openssl sha1 | sed -e 's/.*=//g; s/ //g' | cut -c1-10 )
     elif (echo -n $1 | grep -q -e "^lineage_") ; then
         # Fall back to lineage_<product>
-        CM_BUILD=$(echo -n $1 | sed -e 's/^cm_//g')
+        CM_BUILD=$(echo -n $1 | sed -e 's/^lineage_//g')
         export BUILD_NUMBER=$( (date +%s%N ; echo $CM_BUILD; hostname) | openssl sha1 | sed -e 's/.*=//g; s/ //g' | cut -c1-10 )
     else
         AIM_BUILD=
