@@ -2255,8 +2255,24 @@ otapackage: $(INTERNAL_OTA_PACKAGE_TARGET)
 bacon: otapackage
 	$(hide) ln -f $(INTERNAL_OTA_PACKAGE_TARGET) $(AIM_TARGET_PACKAGE)
 	$(hide) $(MD5SUM) $(AIM_TARGET_PACKAGE) > $(AIM_TARGET_PACKAGE).md5sum
-	@echo "Compilation Successful: $(AIM_TARGET_PACKAGE)"
-
+	#@echo "Compilation Successful: $(AIM_TARGET_PACKAGE)"
+	@echo -e "                                                                            "
+	@echo -e "       d8888 8888888 888b     d888     8888888b.   .d88888b.  888b     d888 " 
+	@echo -e "      d88888   888   8888b   d8888     888   Y88b d88P" "Y88b 8888b   d8888 "
+	@echo -e "     d88P888   888   88888b.d88888     888    888 888     888 88888b.d88888 "
+	@echo -e "    d88P 888   888   888Y88888P888     888   d88P 888     888 888Y88888P888 "
+	@echo -e "   d88P  888   888   888 Y888P 888     8888888P"  888     888 888 Y888P 888 "
+	@echo -e "  d88P   888   888   888  Y8P  888     888 T88b   888     888 888  Y8P  888 "
+	@echo -e " d8888888888   888   888   "   888     888  T88b  Y88b. .d88P 888   "   888 "
+	@echo -e "d88P     888 8888888 888       888     888   T88b  "Y88888P"  888       888 "
+	@echo -e "                                                                            "
+	@echo -e "                                                                            "
+	@echo -e "            	  Build completed! Now Flash the Rom and ENJOY!!  "
+	@echo -e "============================================================================================================"
+	@echo -e "      AIM ROM is based on Android 7.1.2 developed by AnandRamachandran and shadowreaper1 	 "
+	@echo -e "=====================================-Package complete-====================================================="
+	@echo -e "zip: $(AIM_TARGET_PACKAGE)
+	@echo -e "============================================================================================================"
 endif    # build_ota_package
 # -----------------------------------------------------------------
 # The factory package
