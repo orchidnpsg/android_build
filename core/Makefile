@@ -1254,10 +1254,14 @@ $(INSTALLED_FILES_FILE): $(FULL_SYSTEMIMAGE_DEPS)
 	@echo "Generating AIMlog"
 	$(hide) ./vendor/aim/extra/aimlog.sh
 <<<<<<< HEAD
+<<<<<<< HEAD
 	# $(hide) mv $(ANDROID_BUILD_TOP)/vendor/aim/CHANGELOG.mkdn $(PRODUCT_OUT)/$(TARGET_PRODUCT)/system/etc/AIMLOG.txt
 =======
 	$(hide) mv $(ANDROID_BUILD_TOP)vendor/aim/CHANGELOG.mkdn $(PRODUCT_OUT)/$(TARGET_PRODUCT)/system/etc/AIMLOG.txt
 >>>>>>> parent of f75bbb2... Fix build error
+=======
+	$(hide) mv $(ANDROID_BUILD_TOP)/CHANGELOG.mkdn $(PRODUCT_OUT)/$(TARGET_PRODUCT)/system/etc/AIMLOG.txt
+>>>>>>> parent of 1bd652a... Fix AIMLOG again...
 	@echo Installed file list: $@
 	@mkdir -p $(dir $@)
 	@rm -f $@
