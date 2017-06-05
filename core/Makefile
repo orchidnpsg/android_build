@@ -2155,8 +2155,8 @@ ifneq ($(BLOCK_BASED_OTA),false)
 	        zip -0qryXu ../$(notdir $@) .)
 else
 	$(hide) (cd $(zip_root) && \
-	        zip -0qryX ../$(notdir $@) ./META && \
-	        zip -0qryXu ../$(notdir $@) .)
+	        zip -qryX ../$(notdir $@) ./META && \
+	        zip -qryXu ../$(notdir $@) .)
 endif
 	@# Run fs_config on all the system, vendor, boot ramdisk,
 	@# and recovery ramdisk files in the zip, and save the output
