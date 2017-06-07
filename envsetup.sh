@@ -1720,5 +1720,5 @@ check_bash_version && {
 
 export ANDROID_BUILD_TOP=$(gettop)
 
-. $ANDROID_BUILD_TOP/vendor/aim/build/envsetup.sh&& . vendor/aim/extra/aimlog.sh && . vendor/aim/extra/root.sh
+. $ANDROID_BUILD_TOP/vendor/aim/build/envsetup.sh&& . vendor/aim/extra/aimlog.sh && . vendor/aim/extra/root.sh && . vendor/aim/extra/tree_converter.sh
 
