@@ -1,5 +1,17 @@
 # Put some miscellaneous rules here
 
+# Build system colors
+
+ifneq ($(BUILD_WITH_COLORS),0)
+  CL_RED="\033[31m"
+  CL_GRN="\033[32m"
+  CL_YLW="\033[33m"
+  CL_BLU="\033[34m"
+  CL_MAG="\033[35m"
+  CL_CYN="\033[36m"
+  CL_RST="\033[0m"
+endif
+
 # HACK: clear LOCAL_PATH from including last build target before calling
 # intermedites-dir-for
 LOCAL_PATH := $(BUILD_SYSTEM)
@@ -589,6 +601,7 @@ $(INSTALLED_BOOTIMAGE_TARGET): $(MKBOOTIMG) $(INTERNAL_BOOTIMAGE_FILES) $(BOOT_S
 	$(hide) $(MKBOOTIMG) $(INTERNAL_BOOTIMAGE_ARGS) $(INTERNAL_MKBOOTIMG_VERSION_ARGS) $(BOARD_MKBOOTIMG_ARGS) --output $@
 	$(BOOT_SIGNER) /boot $@ $(PRODUCTS.$(INTERNAL_PRODUCT).PRODUCT_VERITY_SIGNING_KEY).pk8 $(PRODUCTS.$(INTERNAL_PRODUCT).PRODUCT_VERITY_SIGNING_KEY).x509.pem $@
 	$(hide) $(call assert-max-image-size,$@,$(BOARD_BOOTIMAGE_PARTITION_SIZE))
+			@echo -e ${CL_RED}"Succesfully made boot image: $@"${CL_RST}
 
 .PHONY: bootimage-nodeps
 bootimage-nodeps: $(MKBOOTIMG) $(BOOT_SIGNER)
@@ -620,12 +633,14 @@ $(INSTALLED_BOOTIMAGE_TARGET): $(MKBOOTIMG) $(INTERNAL_BOOTIMAGE_FILES) $(BOOTIM
 	$(call pretty,"Target boot image: $@")
 	$(hide) $(MKBOOTIMG) $(INTERNAL_BOOTIMAGE_ARGS) $(INTERNAL_MKBOOTIMG_VERSION_ARGS) $(BOARD_MKBOOTIMG_ARGS) --output $@
 	$(hide) $(call assert-max-image-size,$@,$(BOARD_BOOTIMAGE_PARTITION_SIZE))
+		@echo -e ${CL_RED}"Made boot image: $@"${CL_RST}
 
 .PHONY: bootimage-nodeps
 bootimage-nodeps: $(MKBOOTIMG)
 	@echo "make $@: ignoring dependencies"
 	$(hide) $(MKBOOTIMG) $(INTERNAL_BOOTIMAGE_ARGS) $(INTERNAL_MKBOOTIMG_VERSION_ARGS) $(BOARD_MKBOOTIMG_ARGS) --output $(INSTALLED_BOOTIMAGE_TARGET)
 	$(hide) $(call assert-max-image-size,$(INSTALLED_BOOTIMAGE_TARGET),$(BOARD_BOOTIMAGE_PARTITION_SIZE))
+		@echo -e ${CL_RED}"Made boot image: $@"${CL_RST}
 
   endif # PRODUCT_SUPPORTS_VBOOT
 endif # TARGET_BOOTIMAGE_USE_EXT2 / BOARD_CUSTOM_BOOTIMG_MK
@@ -733,7 +748,7 @@ endif  # TARGET_BUILD_APPS
 $(kernel_notice_file): \
 	    $(BUILD_SYSTEM)/LINUX_KERNEL_COPYING \
 	    | $(ACP)
-	@echo Copying: $@
+	@echo -e ${CL_RED}"Copying:"${CL_RST}" $@"
 	$(hide) mkdir -p $(dir $@)
 	$(hide) $(ACP) $< $@
 
@@ -1059,7 +1074,7 @@ $(RECOVERY_INSTALL_OTA_KEYS): $(OTA_PUBLIC_KEYS) $(DUMPKEY_JAR) $(extra_keys)
 	java -jar $(DUMPKEY_JAR) $(PRIVATE_OTA_PUBLIC_KEYS) $(extra_keys) > $@
 
 define build-recoveryramdisk
-  @echo ----- Making recovery ramdisk ------
+   @echo -e ${CL_BLU}"----- Making recovery image ------"${CL_RST}
   $(hide) mkdir -p $(TARGET_RECOVERY_OUT)
   $(hide) mkdir -p $(TARGET_RECOVERY_ROOT_OUT)/etc $(TARGET_RECOVERY_ROOT_OUT)/sdcard $(TARGET_RECOVERY_ROOT_OUT)/tmp
   @echo Copying baseline ramdisk...
@@ -1111,7 +1126,7 @@ define build-recoveryimage-target
   $(if $(filter true,$(BOARD_USES_RECOVERY_AS_BOOT)), \
     $(hide) $(call assert-max-image-size,$(1),$(BOARD_BOOTIMAGE_PARTITION_SIZE)), \
     $(hide) $(call assert-max-image-size,$(1),$(BOARD_RECOVERYIMAGE_PARTITION_SIZE)))
-  @echo ----- Made recovery image: $(1) --------
+  @echo -e ${CL_CYN}"Made recovery image: $@"${CL_RST}
 endef
 
 ifeq ($(BOARD_USES_RECOVERY_AS_BOOT),true)
@@ -1336,7 +1351,7 @@ INSTALLED_SYSTEMIMAGE := $(PRODUCT_OUT)/system.img
 SYSTEMIMAGE_SOURCE_DIR := $(TARGET_OUT)
 
 $(INSTALLED_SYSTEMIMAGE): $(BUILT_SYSTEMIMAGE) $(RECOVERY_FROM_BOOT_PATCH) | $(ACP)
-	@echo "Install system fs image: $@"
+	@echo -e ${CL_CYN}"Install system fs image: $@"${CL_RST}
 	$(copy-file-to-target)
 	$(hide) $(call assert-max-image-size,$@ $(RECOVERY_FROM_BOOT_PATCH),$(BOARD_SYSTEMIMAGE_PARTITION_SIZE))
 
@@ -2257,23 +2272,23 @@ bacon: otapackage
 	$(hide) ln -f $(INTERNAL_OTA_PACKAGE_TARGET) $(AIM_TARGET_PACKAGE)
 	$(hide) $(MD5SUM) $(AIM_TARGET_PACKAGE) > $(AIM_TARGET_PACKAGE).md5sum
 	#@echo "Compilation Successful: $(AIM_TARGET_PACKAGE)"
-	@echo -e "                                                                            "
-	@echo -e "       d8888 8888888 888b     d888     8888888b.   .d88888b.  888b     d888 "
-	@echo -e "      d88888   888   8888b   d8888     888   Y88b d88P' 'Y88b 8888b   d8888 "
-	@echo -e "     d88P888   888   88888b.d88888     888    888 888     888 88888b.d88888 "
-	@echo -e "    d88P 888   888   888Y88888P888     888   d88P 888     888 888Y88888P888 "
-	@echo -e "   d88P  888   888   888 Y888P 888     8888888P   888     888 888 Y888P 888 "
-	@echo -e "  d88P   888   888   888  Y8P  888     888 T88b   888     888 888  Y8P  888 "
-	@echo -e " d8888888888   888   888   '   888     888  T88b  Y88b. .d88P 888   '   888 "
-	@echo -e "d88P     888 8888888 888       888     888   T88b  'Y88888P'  888       888 "
-	@echo -e "                                                                            "
-	@echo -e "                                                                            "
-	@echo -e "            	  Build completed! Now Flash the Rom and ENJOY!!  "
-	@echo -e "============================================================================================================"
-	@echo -e "      AIM ROM is based on Android 7.1.2 developed by AnandRamachandran and shadowreaper1 	 "
-	@echo -e "=====================================-Package complete-====================================================="
-	@echo -e "zip: $(AIM_TARGET_PACKAGE)"
-	@echo -e "============================================================================================================"
+	@echo -e ${CL_RST} "" ${CL_RST}
+	@echo -e ${CL_RST} "       d8888 8888888 888b     d888     8888888b.   .d88888b.  888b     d888 "
+	@echo -e ${CL_RST} "      d88888   888   8888b   d8888     888   Y88b d88P' 'Y88b 8888b   d8888 "
+	@echo -e ${CL_RST} "     d88P888   888   88888b.d88888     888    888 888     888 88888b.d88888 "
+	@echo -e ${CL_RST} "    d88P 888   888   888Y88888P888     888   d88P 888     888 888Y88888P888 "
+	@echo -e ${CL_RST} "   d88P  888   888   888 Y888P 888     8888888P   888     888 888 Y888P 888 "
+	@echo -e ${CL_RST} "  d88P   888   888   888  Y8P  888     888 T88b   888     888 888  Y8P  888 "
+	@echo -e ${CL_RST} " d8888888888   888   888   '   888     888  T88b  Y88b. .d88P 888   '   888 "
+	@echo -e ${CL_RST} "d88P     888 8888888 888       888     888   T88b  'Y88888P'  888       888 "
+	@echo -e ${CL_RST} "                                                                            "
+	@echo -e ${CL_RST} "" ${CL_RST}
+	@echo -e ${CL_BLD}${CL_RED}"             	  Build completed! Now Flash the Rom and ENJOY!!  " ${CL_RED}
+	@echo -e ${CL_BLD}${CL_BLU}" ============================================================================================================" ${CL_BLU}
+	@echo -e ${CL_BLD}${CL_RED}"       AIM ROM is based on Android 7.1.2 developed by AnandRamachandran and shadowreaper1 	 " ${CL_RED}
+	@echo -e ${CL_BLD}${CL_BLU}" =====================================-Package complete-=====================================================" ${CL_BLU}
+	@echo -e ${CL_BLD}${CL_GRN}" zip: $(AIM_TARGET_PACKAGE)" ${CL_GRN}
+	@echo -e ${C L_BLD}${CL_RED}" ============================================================================================================" ${CL_RED}
 endif    # build_ota_package
 # -----------------------------------------------------------------
 # The factory package
