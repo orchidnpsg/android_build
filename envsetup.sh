@@ -547,8 +547,25 @@ function print_lunch_menu()
 {
     local uname=$(uname)
     echo
-    echo "You're building on" $uname
-    echo
+	echo ""
+	tput setaf 1;
+	tput bold;
+	echo "       d8888 8888888 888b     d888     8888888b.   .d88888b.  888b     d888 "
+	echo "      d88888   888   8888b   d8888     888   Y88b d88P' 'Y88b 8888b   d8888 "
+	echo "     d88P888   888   88888b.d88888     888    888 888     888 88888b.d88888 "
+	echo "    d88P 888   888   888Y88888P888     888   d88P 888     888 888Y88888P888 "
+	echo "   d88P  888   888   888 Y888P 888     8888888P   888     888 888 Y888P 888 "
+	echo "  d88P   888   888   888  Y8P  888     888 T88b   888     888 888  Y8P  888 "
+	echo " d8888888888   888   888   '   888     888  T88b  Y88b. .d88P 888   '   888 "
+	echo "d88P     888 8888888 888       888     888   T88b  'Y88888P'  888       888 "
+	tput sgr0;
+	echo ""
+	echo "                      Welcome to the device menu                      "
+	echo ""
+	tput bold;
+	echo "     Type lunch to display all officially supported device list     "
+	tput sgr0;
+	echo ""
     if [ "z${AIM_DEVICES_ONLY}" != "z" ]; then
        echo "Breakfast menu... pick a combo:"
     else
@@ -579,7 +596,10 @@ function lunch()
         answer=$1
     else
         print_lunch_menu
-        echo -n "Which would you like? [aosp_arm-eng] "
+        tput setaf 2;
+        tput bold;
+        echo -n "Go ahead and pick a number or enter lunch combo(aim_device-userdebug)... "
+        tput sgr0;
         read answer
     fi
 
@@ -601,8 +621,9 @@ function lunch()
 
     if [ -z "$selection" ]
     then
-        echo
-        echo "Invalid lunch combo: $answer"
+        echo""
+        echo "Dude are you blind? Drunk? smoke weed?..input correct combo"
+	echo""
         return 1
     fi
 
