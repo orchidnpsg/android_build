@@ -40,7 +40,6 @@ PRODUCT_PACKAGES += \
     LatinIME \
     ManagedProvisioning \
     MtpDocumentsProvider \
-    PicoTts \
     PacProcessor \
     libpac \
     PrintSpooler \
