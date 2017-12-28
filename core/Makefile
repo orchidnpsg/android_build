@@ -2679,8 +2679,11 @@ $(INTERNAL_OTA_PACKAGE_TARGET): $(BUILT_TARGET_FILES_PACKAGE) \
 
 AIM_TARGET_PACKAGE := $(PRODUCT_OUT)/$(AIM_VERSION).zip
 
-.PHONY: otapackage bacon
+.PHONY: otapackage aim bobs vegene bacon
 otapackage: $(INTERNAL_OTA_PACKAGE_TARGET)
+aim: bacon
+bobs: aim
+vegene: bobs
 bacon: otapackage
 	$(hide) ln -f $(INTERNAL_OTA_PACKAGE_TARGET) $(AIM_TARGET_PACKAGE)
 	$(hide) $(MD5SUM) $(AIM_TARGET_PACKAGE) | sed "s|$(PRODUCT_OUT)/||" > $(AIM_TARGET_PACKAGE).md5sum
