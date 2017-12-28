@@ -505,10 +505,10 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
     buildidn = GetBuildProp("ro.build.id", OPTIONS.info_dict)
     buildday = GetBuildProp("ro.build.date", OPTIONS.info_dict)
     securep = GetBuildProp("ro.build.version.security_patch", OPTIONS.info_dict)
-    density = GetBuildProp("ro.sf.lcd_density", OPTIONS.info_dict,False)
+    density = GetBuildProp("ro.sf.lcd_density", OPTIONS.info_dict)
     device = GetBuildProp("ro.aim.device", OPTIONS.info_dict)
     androidver = GetBuildProp("ro.build.version.release", OPTIONS.info_dict)
-    manufacturer  = GetBuildProp("ro.product.manufacturer", OPTIONS.info_dict)
+    manifacturer = GetBuildProp("ro.product.manufacturer", OPTIONS.info_dict)
     sdkver = GetBuildProp("ro.build.version.sdk", OPTIONS.info_dict)
     script.Print(" **************** Software *****************");
     script.Print(" OS version: %s"%(buildid));
@@ -527,7 +527,7 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
     script.Print(" **************** Hardware *****************");
     script.Print(" Device codename: %s"%(device));
     script.Print("");
-    script.Print(" Manufacturer: %s"%(manufacturer ));
+    script.Print(" Manufacturer: %s"%(manifacturer));
     script.Print("");
     script.Print(" LCD density: %s"%(density));
     script.Print("");
@@ -628,15 +628,12 @@ def WriteMetadata(metadata, output_zip):
                      compress_type=zipfile.ZIP_STORED)
 
 
-def GetBuildProp(prop, info_dict, raise_error=True):
+def GetBuildProp(prop, info_dict):
   """Return the fingerprint of the build of a given target-files info_dict."""
   try:
     return info_dict.get("build.prop", {})[prop]
   except KeyError:
-    if raise_error:
-       raise common.ExternalError("couldn't find %s in build.prop" % (prop,))
-     else:
-       return "Unknow"
+    raise common.ExternalError("couldn't find %s in build.prop" % (prop,))
 
 
 def HandleDowngradeMetadata(metadata):
