@@ -1352,7 +1352,7 @@ def main(argv):
     elif o == "--payload_signer_args":
       OPTIONS.payload_signer_args = shlex.split(a)
     elif o == "--extracted_input_target_files":
-      OPTIONS.extracted_input = a6
+      OPTIONS.extracted_input = a
     elif o in ("--override_device"):
       OPTIONS.override_device = a
     elif o in ("--backup"):
