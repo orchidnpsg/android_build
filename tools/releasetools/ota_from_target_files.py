@@ -820,6 +820,19 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
   # Dump fingerprints
   script.Print("Target: {}".format(target_info.fingerprint))
 
+  #Print ASCII
+  script.Print("**************************************************");
+  script.Print("**                                              **");
+  script.Print("**      ___    _           ____                 **");
+  script.Print("**     /   |  (_)___ ___  / __ \____  ____ ___  **");
+  script.Print("**    / /| | / / __ `__ \/ /_/ / __ \/ __ `__ \ **");
+  script.Print("**   / ___ |/ / / / / / / _, _/ /_/ / / / / / / **");
+  script.Print("**  /_/  |_/_/_/ /_/ /_/_/ |_|\____/_/ /_/ /_/  **");
+  script.Print("**                 Android-8.1.0                **");
+  script.Print("**************************************************");
+  script.Print("*      By AnandRamachandran & Shadowreaper1.     *");
+  script.Print("**************************************************");
+  script.Print(" ")
   script.AppendExtra("ifelse(is_mounted(\"/system\"), unmount(\"/system\"));")
   device_specific.FullOTA_InstallBegin()
 
