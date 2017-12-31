@@ -483,8 +483,26 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
   # Dump fingerprints
   script.Print("Target: %s" % target_fp)
 
+  #Print ASCII
+  script.Print("**************************************************");
+  script.Print("**                                              **");
+  script.Print("**      ___    _           ____                 **");
+  script.Print("**     /   |  (_)___ ___  / __ \____  ____ ___  **");
+  script.Print("**    / /| | / / __ `__ \/ /_/ / __ \/ __ `__ \ **");
+  script.Print("**   / ___ |/ / / / / / / _, _/ /_/ / / / / / / **");
+  script.Print("**  /_/  |_/_/_/ /_/ /_/_/ |_|\____/_/ /_/ /_/  **");
+  script.Print("**                 Android-8.1.0                **");
+  script.Print("**************************************************");
+  script.Print("*      By AnandRamachandran & Shadowreaper1.     *");
+  script.Print("**************************************************");
+  script.Print(" ")
   script.AppendExtra("ifelse(is_mounted(\"/system\"), unmount(\"/system\"));")
   device_specific.FullOTA_InstallBegin()
+
+  CopyInstallTools(output_zip)
+  script.UnpackPackageDir("install", "/tmp/install")
+  script.SetPermissionsRecursive("/tmp/install", 0, 0, 0755, 0644, None, None)
+  script.SetPermissionsRecursive("/tmp/install/bin", 0, 0, 0755, 0755, None, None)
 
   if OPTIONS.backuptool:
     script.Mount("/system")
@@ -492,11 +510,6 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
     script.RunBackup("backup")
     script.Print("BackupTools: DONE! Now real installation will begin")
     script.Unmount("/system")
-
-  CopyInstallTools(output_zip)
-  script.UnpackPackageDir("install", "/tmp/install")
-  script.SetPermissionsRecursive("/tmp/install", 0, 0, 0755, 0644, None, None)
-  script.SetPermissionsRecursive("/tmp/install/bin", 0, 0, 0755, 0755, None, None)
 
   system_progress = 0.75
 
