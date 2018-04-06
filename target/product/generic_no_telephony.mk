@@ -20,8 +20,8 @@
 PRODUCT_PACKAGES := \
     Bluetooth \
     BluetoothMidiService \
-    Camera2 \
     Gallery2 \
+    Snap \
     Music \
     MusicFX \
     OneTimeInitializer \
