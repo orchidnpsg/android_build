@@ -493,7 +493,7 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
   script.Print("**  /_/  |_/_/_/ /_/ /_/_/ |_|\____/_/ /_/ /_/  **");
   script.Print("**                 Android-8.1.0                **");
   script.Print("**************************************************");
-  script.Print("*      By AnandRamachandran & Shadowreaper1.     *");
+  script.Print("*     		   By TEAM-AIM  		 *");
   script.Print("**************************************************");
   script.Print(" ")
   script.AppendExtra("ifelse(is_mounted(\"/system\"), unmount(\"/system\"));")
