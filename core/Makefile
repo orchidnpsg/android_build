@@ -3094,7 +3094,7 @@ bacon: otapackage
 	@echo -e ${CL_RED} "" ${CL_RED}
 	@echo -e ${CL_BLD}${CL_GRN}"             	  Build completed! Now Flash the Rom and ENJOY!!  " ${CL_GRN}
 	@echo -e ${CL_BLD}${CL_GRN}" ============================================================================================================" ${CL_GRN}
-	@echo -e ${CL_BLD}${CL_RED}"       AIM ROM is based on Android 8.1.x developed by AnandRamachandran and shadowreaper1 	 " ${CL_RED}
+	@echo -e ${CL_BLD}${CL_RED}"       		AIM ROM is based on Android 8.1.x developed by TEAM-AIM 	 " ${CL_RED}
 	@echo -e ${CL_BLD}${CL_BLU}" =====================================-Package complete-=====================================================" ${CL_BLU}
 	@echo -e ${CL_BLD}${CL_GRN}" zip: $(AIM_TARGET_PACKAGE)" ${CL_GRN}
 	@echo -e ${CL_BLD}${CL_RED}" ============================================================================================================" ${CL_RED}
