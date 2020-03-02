@@ -965,6 +965,18 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
   # Dump fingerprints
   script.Print("Target: {}".format(target_info.fingerprint))
 
+  #Print ASCII
+  script.Print("********************************************");
+  script.Print("    ___    _           ____                 ");
+  script.Print("   /   |  (_)___ ___  / __ \____  ____ ___  ");
+  script.Print("  / /| | / / __ `__ \/ /_/ / __ \/ __ `__ \ ");
+  script.Print(" / ___ |/ / / / / / / _, _/ /_/ / / / / / / ");
+  script.Print("/_/  |_/_/_/ /_/ /_/_/ |_|\____/_/ /_/ /_/  ");
+  script.Print("                                            ");
+  script.Print("********************************************");
+  script.Print("*     	        By TEAM-AIM                *");
+  script.Print("********************************************");
+  script.Print(" ")
   device_specific.FullOTA_InstallBegin()
 
   CopyInstallTools(output_zip)
